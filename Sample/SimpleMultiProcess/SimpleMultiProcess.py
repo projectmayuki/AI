@@ -12,10 +12,10 @@ def worker_func(worker_index, input_queue, output_queue):
             print("worker_index:" + str(worker_index) + " ")
             print(input)
             #output_queue.put( (input_queue) )
-            time.sleep(1)
+            time.sleep(3)
         except queue.Empty:
             # キューが空になった
-            time.sleep(10)
+            print("worker index:" + str(worker_index) + " End : Queue is empty.")
             break
     return 
             
@@ -25,8 +25,8 @@ if __name__ == '__main__':
     output_queue = multiprocessing.Queue()
 
     processes = list()
-    num_worker = 2
-    for worker_index in range(1, num_worker):
+    num_worker = 3
+    for worker_index in range(0, num_worker):
         process = multiprocessing.Process(
             target=worker_func,
             args=(worker_index, input_queue, output_queue))
