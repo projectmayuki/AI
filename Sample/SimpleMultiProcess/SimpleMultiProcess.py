@@ -11,7 +11,7 @@ def worker_func(worker_index, input_queue, output_queue):
             input = input_queue.get(timeout=5)
             print("worker_index:" + str(worker_index) + " ")
             print(input)
-            #output_queue.put( (input_queue) )
+            # output_queue.put( (input_queue) )
             time.sleep(3)
         except queue.Empty:
             # キューが空になった
@@ -38,4 +38,9 @@ if __name__ == '__main__':
     input_queue.put( 3 )
     input_queue.put( (4, 5) )
     input_queue.put( "Bye" )
+
+    for p in processes:
+        p.join()
+
+    print("All processes end.")
     
