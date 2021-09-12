@@ -30,4 +30,4 @@ if __name__ == '__main__':
         send_raw_data = { "AdminCommand" : "ShutdownServer", "AdminPassword" : "**" }
         s.sendall(pickle.dumps(send_raw_data))
         data = s.recv(msg_buf_size)
-        print(data.decode())
+        print(pickle.loads(data))
