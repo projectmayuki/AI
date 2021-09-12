@@ -12,7 +12,7 @@ if __name__ == '__main__':
     with socket.socket(socket.AF_INET, socket.SOCK_DGRAM) as s:
         s.connect( (server_addr, server_port) )
 
-        send_raw_data = { "Trans" : (0, 1, 2) }
+        send_raw_data = { "Trans" : (0, 1, 2), "Name" : "サンプルオブジェクト" }
         s.sendall(pickle.dumps(send_raw_data))
 
         data = s.recv(msg_buf_size)
