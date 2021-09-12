@@ -12,8 +12,22 @@ if __name__ == '__main__':
     with socket.socket(socket.AF_INET, socket.SOCK_DGRAM) as s:
         s.connect( (server_addr, server_port) )
 
-        send_raw_data = { "Trans" : (0, 1, 2), "Name" : "サンプルオブジェクト" }
+        # Data型の送信
+        send_raw_data = { "Data" : {"Trans" : (0, 1, 2), "Name" : "サンプルオブジェクト"} }
         s.sendall(pickle.dumps(send_raw_data))
 
+        data = s.recv(msg_buf_size)
+        print(data.decode())
+
+        # 不正フォーマットデータの送信
+        send_raw_data = "AAAA"
+        s.sendall(pickle.dumps(send_raw_data))
+        data = s.recv(msg_buf_size)
+        print(data.decode())
+        
+
+        # サーバーシャットダウンコマンド
+        send_raw_data = { "AdminCommand" : "ShutdownServer", "AdminPassword" : "**" }
+        s.sendall(pickle.dumps(send_raw_data))
         data = s.recv(msg_buf_size)
         print(data.decode())
