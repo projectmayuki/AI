@@ -1,3 +1,4 @@
+# -- coding: utf-8 --
 # @author : Mayuki
 # @brief : データ受信・返信サーバーのインターフェース
 # @file : IServerProcess.py

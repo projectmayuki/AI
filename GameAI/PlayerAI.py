@@ -1,31 +1,25 @@
+# -- coding: utf-8 --
 # @author Mayuki
 # @brief プレイヤーAI
 # @file PlayerAI.py
 
-import multiprocessing
-import queue
+from GameAIBase import GameAIBase
 
-from AI import SampleAI
+from AI.SampleAI import SampleAI
+from Server.PlayerAIServer import PlayerAIServer
 
-class PlayerAI:
+class PlayerAI(GameAIBase):
 
     def __init__(self):
-        self._process_mgr = multiprocessing.Manager()
-        self._receive_data_queue = self._process_mgr.Queue() # ゲームからプレイヤー情報を受信
-        self._send_data_queue = self._process_mgr.Queue() # ゲーム側に送る送信コマンド
-
-        self._ai = SampleAI.SampleAI()
+        super().__init__()
     # __init__
 
-    def execute(self):
-        pool = multiprocessing.Pool(2)
-        pool.apply_async(self._ai.execute, args=())
+    def _create_ai_core(self, receive_data_queue, send_data_queue):
+        return SampleAI()
+    # _create_ai_core
 
-        pool.close()
-        pool.join()
-
-        print("shutdown")
-    # execute
+    def _create_server_process(self, receive_data_queue, send_data_queue):
+        return PlayerAIServer(receive_data_queue, send_data_queue)
 
 if __name__ == '__main__':
     ai = PlayerAI()
