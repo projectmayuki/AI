@@ -5,7 +5,7 @@
 
 from GameAIBase import GameAIBase
 
-from AI.SampleAI import SampleAI
+from AI.PlayerAICore import PlayerAICore
 from Server.PlayerAIServer import PlayerAIServer
 
 class PlayerAI(GameAIBase):
@@ -15,7 +15,7 @@ class PlayerAI(GameAIBase):
     # __init__
 
     def _create_ai_core(self, receive_data_queue, send_data_queue):
-        return SampleAI()
+        return PlayerAICore(receive_data_queue, send_data_queue)
     # _create_ai_core
 
     def _create_server_process(self, receive_data_queue, send_data_queue):
