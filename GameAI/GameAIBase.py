@@ -8,6 +8,8 @@ from Server.IServerProcess import IServerProcess
 
 class GameAIBase(IServerProcess):
 
+    GAME_FPS = 1.0 / 60.0
+
     def __init__(self):
         self._process_mgr = multiprocessing.Manager()
         self._receive_data_queue = self._process_mgr.Queue() # ゲームからプレイヤー情報を受信
