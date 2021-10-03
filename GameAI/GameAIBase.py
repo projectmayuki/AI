@@ -19,13 +19,13 @@ class GameAIBase(IServerProcess):
     # __init__
 
     def execute(self):
-        pool = multiprocessing.Pool(1)
-        pool.apply_async(self._ai_core.execute, args={})
-        pool.close()
+        p = multiprocessing.Process(target=self._ai_core.execute, args=())
+        p.start()
 
         self.execute_server(self._get_server_port())
 
-        pool.join()
+        self._ai_core.shutdown()
+        p.join()
 
         print("shutdown")
     # execute

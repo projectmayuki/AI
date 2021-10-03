@@ -34,7 +34,7 @@ class PlayerAI(GameAIBase):
         try:
             commands = self._send_data_queue.get(timeout=GameAIBase.GAME_FPS * 2) # タイムアウトはゲームに支障ないように2フレーム分
             for command in commands:
-                player_commands << command
+                player_commands.append(command)
         except queue.Empty:
             pass
             
