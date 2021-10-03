@@ -5,7 +5,7 @@
 
 from GameAIBase import GameAIBase
 
-from AI.PlayerAICore import PlayerAICore
+from AICore.PlayerAICore import PlayerAICore
 from Server.PlayerAIServer import PlayerAIServer
 
 class PlayerAI(GameAIBase):
