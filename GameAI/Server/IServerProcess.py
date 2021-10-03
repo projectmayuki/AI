@@ -14,7 +14,7 @@ class IServerProcess:
         pass
     # __init__
 
-    def execute(self, port, opt = {"ServerMaxClientNum" : 5, "ServerBufferSize" : 4096}):
+    def execute_server(self, port, opt = {"ServerMaxClientNum" : 5, "ServerBufferSize" : 4096}):
         with socket.socket(socket.AF_INET, socket.SOCK_DGRAM) as _socket:
             _socket.bind( (IServerProcess.ADDR, port) )
 
@@ -25,14 +25,14 @@ class IServerProcess:
                 if self._receive_admin_command(receive_data, client_addr, _socket):
                     break
                 
-                self._execute(receive_data, client_addr, _socket)
+                self._receive_and_reply_as_server(receive_data, client_addr, _socket)
             # while
         # with socket
     # execute
 
     # 受信データに対する対応
     # @param[in] receive_data : pickleでパース済み
-    def _execute(self, receive_data, clent_addr, socket):
+    def _receive_and_reply_as_server(self, receive_data, clent_addr, socket):
         pass
     # _execute
 
