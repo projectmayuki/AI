@@ -21,8 +21,16 @@ class PlayerAI(GameAIBase):
 
     # 受信データに対する対応
     # @param[in] receive_data : pickleでパース済み
-    def _receive_and_reply_as_server(self, receive_data, clent_addr, socket):
-        pass
+    def _receive_and_reply_as_server(self, receive_data, client_addr, socket):
+
+        # プレイヤー情報の解析
+        if "PlayerInfo" in receive_data:
+            self._receive_data_queue.put({"PlayerInfo" : receive_data["PlayerInfo"]})
+
+        # ゲーム側への返答
+        player_commands = ["Up", "A"]
+        self._send_to({"PlayerInput" : player_commands}, client_addr, socket)
+        
     # _execute
 
 if __name__ == '__main__':

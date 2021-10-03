@@ -38,7 +38,7 @@ class GameAIBase(IServerProcess):
 
     # 受信データに対する対応
     # @param[in] receive_data : pickleでパース済み
-    def _receive_and_reply_as_server(self, receive_data, clent_addr, socket):
+    def _receive_and_reply_as_server(self, receive_data, client_addr, socket):
         pass
     # _execute
 
