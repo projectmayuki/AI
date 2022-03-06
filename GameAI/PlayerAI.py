@@ -6,7 +6,7 @@
 import queue
 
 from GameAIBase import GameAIBase
-from AICore.PlayerAICore import PlayerAICore
+from AICore import PlayerAICore
 
 class PlayerAI(GameAIBase):
 
@@ -17,7 +17,7 @@ class PlayerAI(GameAIBase):
     # __init__
 
     def _create_ai_core(self, receive_data_queue, send_data_queue):
-        return PlayerAICore(receive_data_queue, send_data_queue)
+        return PlayerAICore.PlayerAICore(receive_data_queue, send_data_queue)
     # _create_ai_core
 
     # 受信データに対する対応
@@ -43,5 +43,6 @@ class PlayerAI(GameAIBase):
     # _execute
 
 if __name__ == '__main__':
+    print("PlayerAI Start")
     ai = PlayerAI()
     ai.execute()

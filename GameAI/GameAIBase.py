@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 # @author Mayuki
 # @brief Game用AIの共通インターフェース
 # @file GameAIBase.py
