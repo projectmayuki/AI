@@ -15,6 +15,8 @@ class IServerProcess:
     # __init__
 
     def execute_server(self, port, opt = {"ServerMaxClientNum" : 5, "ServerBufferSize" : 4096}):
+        # SOCK_STREAM : TCP
+        # SOCK_DGRAM : UDP
         with socket.socket(socket.AF_INET, socket.SOCK_DGRAM) as _socket:
             _socket.bind( (IServerProcess.ADDR, port) )
 
