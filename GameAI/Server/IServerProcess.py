@@ -4,15 +4,14 @@
 # @file : IServerProcess.py
 
 import socket
-#import pickle
-import json
+from ServerDataTranslator import ServerDataTranslator
 
 class IServerProcess:
 
     ADDR = "127.0.0.1"
     
     def __init__(self):
-        pass
+        ServerDataTranslator.set_mode_json() # デフォルト設定
     # __init__
 
     def execute_server(self, port, opt = {"ServerMaxClientNum" : 5, "ServerBufferSize" : 4096}):
@@ -23,9 +22,7 @@ class IServerProcess:
 
             while True:
                 receive_raw_data, client_addr = _socket.recvfrom(opt["ServerBufferSize"])
-                #receive_data = pickle.loads(recieve_raw_data)
-                print(receive_raw_data.decode())
-                receive_data = json.loads(receive_raw_data.decode())
+                receive_data = ServerDataTranslator.decode(receive_raw_data)
 
                 if self._receive_admin_command(receive_data, client_addr, _socket):
                     break
@@ -42,8 +39,7 @@ class IServerProcess:
     # _execute
 
     def _send_to(self, send_data_raw, client_addr, socket):
-        #decode_data = pickle.dumps(send_data_raw)
-        encode_data = json.dumps(send_data_raw).encode()
+        encode_data = ServerDataTranslator.encode(send_data_raw)
         socket.sendto(encode_data, client_addr)
     # _send_to
 

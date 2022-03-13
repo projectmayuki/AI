@@ -1,7 +1,11 @@
 
 import socket
-#import pickle
-import json
+
+# 親ディレクトリをimportパスに追加
+import os
+import sys
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+from Server.ServerDataTranslator import ServerDataTranslator
 
 if __name__ == '__main__':
     # 接続先サーバー設定
@@ -9,14 +13,15 @@ if __name__ == '__main__':
     server_port = 7010
     msg_buf_size = 4096
 
+    ServerDataTranslator.set_mode_json()
+
     #
     with socket.socket(socket.AF_INET, socket.SOCK_DGRAM) as s:
         s.connect( (server_addr, server_port) )
 
         # サーバーシャットダウンコマンド
         send_raw_data = { "PlayerInfo" : {"Trans" : (0, 0, 0)} }
-        #encode_data = pickle.dumps(send_raw_data)
-        encode_data = json.dumps(send_raw_data)
+        encode_data = ServerDataTranslator.encode(send_raw_data)
         s.sendall(encode_data)
         data = s.recv(msg_buf_size)
-        print(pickle.loads(data))
+        print(ServerDataTranslator.decode(data))
