@@ -4,7 +4,8 @@
 # @file : IServerProcess.py
 
 import socket
-import pickle
+#import pickle
+import json
 
 class IServerProcess:
 
@@ -21,8 +22,10 @@ class IServerProcess:
             _socket.bind( (IServerProcess.ADDR, port) )
 
             while True:
-                recieve_raw_data, client_addr = _socket.recvfrom(opt["ServerBufferSize"])
-                receive_data = pickle.loads(recieve_raw_data)
+                receive_raw_data, client_addr = _socket.recvfrom(opt["ServerBufferSize"])
+                #receive_data = pickle.loads(recieve_raw_data)
+                print(receive_raw_data.decode())
+                receive_data = json.loads(receive_raw_data.decode())
 
                 if self._receive_admin_command(receive_data, client_addr, _socket):
                     break
@@ -39,7 +42,9 @@ class IServerProcess:
     # _execute
 
     def _send_to(self, send_data_raw, client_addr, socket):
-        socket.sendto(pickle.dumps(send_data_raw), client_addr)
+        #decode_data = pickle.dumps(send_data_raw)
+        encode_data = json.dumps(send_data_raw).encode()
+        socket.sendto(encode_data, client_addr)
     # _send_to
 
     def _receive_admin_command(self, receive_data, client_addr, socket):

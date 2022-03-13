@@ -1,6 +1,7 @@
 
 import socket
-import pickle
+#import pickle
+import json
 
 if __name__ == '__main__':
     # 接続先サーバー設定
@@ -14,6 +15,8 @@ if __name__ == '__main__':
 
         # サーバーシャットダウンコマンド
         send_raw_data = { "PlayerInfo" : {"Trans" : (0, 0, 0)} }
-        s.sendall(pickle.dumps(send_raw_data))
+        #encode_data = pickle.dumps(send_raw_data)
+        encode_data = json.dumps(send_raw_data)
+        s.sendall(encode_data)
         data = s.recv(msg_buf_size)
         print(pickle.loads(data))
