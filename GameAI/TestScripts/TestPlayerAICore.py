@@ -15,6 +15,8 @@ from AICore.AIModule.AICoreBase import AICoreBase
 class TestPlayerAICore(AICoreBase):
 
     def __init__(self, receive_data_queue, send_data_queue):
+        AICoreBase.__init__(self, receive_data_queue, send_data_queue)
+        
         # ゲームから受け取ったデータと送信データのバッファキュー
         self._receive_data_queue = receive_data_queue
         self._send_data_queue = send_data_queue
