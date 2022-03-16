@@ -47,22 +47,32 @@ class TestPlayerAICore(AICoreBase):
     def _test_func(self, worker_idx, blackboard_queue):
         while self._is_shutdown_command(blackboard_queue) == False:
             player_commands = ["Up", "A"]
-
-            # 未送信データがあれば上書きするために一度ポップ
-            try:
-                delete_commands = self._send_data_queue.get(timeout=0.1)
-            except queue.Empty:
-                pass
-
-            self._send_data_queue.put(player_commands)
+            self._send_command_to_server(player_commands)
         
     # _test_func
 
     def shutdown(self):
-        pass
         # 適当にshutdownメッセージで埋める
         for i in range(100):
             self._blackboard_queue.put({"AdminCommand" : "Shutdown"})
+
+    # サーバーへのコマンド送信キューにput
+    def _send_command_to_server(self, command):
+        # 未送信データがあれば上書きするために一度ポップ
+        try:
+            delete_commands = self._send_data_queue.get(timeout=0.1)
+        except queue.Empty:
+            pass
+
+        self._send_data_queue.put(player_commands)
+
+    # サーバーからのコマンド受信キューからget
+    def _receive_command_from_server(self):
+        try:
+            command = self._send_data_queue.get(timeout=0.1)
+            return command
+        except queue.Empty:
+            return None
         
 
     def _is_shutdown_command(self, blackboard_queue):
