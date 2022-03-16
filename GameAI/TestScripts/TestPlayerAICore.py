@@ -6,7 +6,13 @@
 import multiprocessing
 import queue
 
-class TestPlayerAICore:
+# 親ディレクトリをimportパスに追加
+import os
+import sys
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+from AICore.AIModule.AICoreBase import AICoreBase
+
+class TestPlayerAICore(AICoreBase):
 
     def __init__(self, receive_data_queue, send_data_queue):
         # ゲームから受け取ったデータと送信データのバッファキュー
@@ -53,6 +59,7 @@ class TestPlayerAICore:
     # _test_func
 
     def shutdown(self):
+        pass
         # 適当にshutdownメッセージで埋める
         for i in range(100):
             self._blackboard_queue.put({"AdminCommand" : "Shutdown"})
