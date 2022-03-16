@@ -28,5 +28,3 @@ if __name__ == '__main__':
         send_raw_data = { "PlayerInfo" : {"Trans" : (0, 0, 0)} }
         encode_data = ServerDataTranslator.encode(send_raw_data)
         s.sendall(encode_data)
-        data = s.recv(msg_buf_size)
-        print(ServerDataTranslator.decode(data))

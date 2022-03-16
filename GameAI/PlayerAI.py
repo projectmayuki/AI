@@ -27,18 +27,18 @@ class PlayerAI(GameAIBase):
         # プレイヤー情報の解析
         if "PlayerInfo" in receive_data:
             self._receive_data_queue.put({"PlayerInfo" : receive_data["PlayerInfo"]})
-
-        # ゲーム側への返答
-        player_commands = []
-        # player_commands = ["Up", "A"]
-        try:
-            commands = self._send_data_queue.get(timeout=GameAIBase.GAME_FPS * 2) # タイムアウトはゲームに支障ないように2フレーム分
-            for command in commands:
-                player_commands.append(command)
-        except queue.Empty:
-            pass
+        elif "ReceivePlayerOrder" in receive_data:
+            # ゲーム側への返答
+            player_commands = []
+            # player_commands = ["Up", "A"]
+            try:
+                commands = self._send_data_queue.get(timeout=GameAIBase.GAME_FPS * 2) # タイムアウトはゲームに支障ないように2フレーム分
+                for command in commands:
+                    player_commands.append(command)
+            except queue.Empty:
+                pass
             
-        self._send_to({"PlayerInput" : player_commands}, client_addr, socket)
+            self._send_to({"PlayerInput" : player_commands}, client_addr, socket)
         
     # _execute
 
