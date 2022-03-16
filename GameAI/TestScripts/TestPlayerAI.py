@@ -10,19 +10,16 @@ import os
 import sys
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from GameAIBase import GameAIBase
-from Server.ServerDataTranslator import ServerDataTranslator
-from AICore import PlayerAICore
+from TestPlayerAICore import TestPlayerAICore
 
 class TestPlayerAI(GameAIBase):
-
-    PLAYER_SERVER_ADDR = "127.0.0.1"
 
     def __init__(self):
         super().__init__()
     # __init__
 
     def _create_ai_core(self, receive_data_queue, send_data_queue):
-        return PlayerAICore.PlayerAICore(receive_data_queue, send_data_queue)
+        return TestPlayerAICore(receive_data_queue, send_data_queue)
     # _create_ai_core
 
     # 受信データに対する対応
