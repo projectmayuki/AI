@@ -8,11 +8,13 @@ import sys
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from Server.ServerDataTranslator import ServerDataTranslator
 
+import TestServerSetting
+
 if __name__ == '__main__':
     # 接続先サーバー設定
-    server_addr = '127.0.0.1'
-    server_port = 7010
-    msg_buf_size = 4096
+    server_addr = TestServerSetting.TestServerSetting.addr()
+    server_port = TestServerSetting.TestServerSetting.port()
+    msg_buf_size = TestServerSetting.TestServerSetting.msg_buf_size()
 
     ServerDataTranslator.set_mode_json()
 
