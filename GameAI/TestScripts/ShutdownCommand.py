@@ -1,4 +1,7 @@
-# -*- coding: utf-8 -*-
+# -- coding: utf-8 --
+# @author Mayuki
+# @brief AIサーバーにシャットダウンコマンドを送信
+# @file ShutdownCommond.py
 
 import socket
 
@@ -12,11 +15,10 @@ import TestServerSetting
 
 if __name__ == '__main__':
     # 接続先サーバー設定
-    server_addr = TestServerSetting.TestServerSetting.addr()
-    server_port = TestServerSetting.TestServerSetting.port()
-    msg_buf_size = TestServerSetting.TestServerSetting.msg_buf_size()
-
-    ServerDataTranslator.set_mode_json()
+    server_setter = TestServerSetting.TestServerSetting()
+    server_addr = server_setter.addr()
+    server_port = server_setter.port()
+    msg_buf_size = server_setter.msg_buf_size()
 
     #
     with socket.socket(socket.AF_INET, socket.SOCK_DGRAM) as s:
